@@ -16,7 +16,7 @@
 
 	$data = array();
 	
-	header('Access-Control-Allow-Origin: http://localhost:8085');
+	// header('Access-Control-Allow-Origin: http://localhost:8085');
 	
 	if($campData){
 		$data[] = $campData;

@@ -1,6 +1,6 @@
 <?php
 
-header('Access-Control-Allow-Origin: http://localhost:8085');
+  // header('Access-Control-Allow-Origin: http://localhost:8080');
 	include('config.php');
 
 	if(isset($_FILES["file"]["type"])){
@@ -18,7 +18,7 @@ header('Access-Control-Allow-Origin: http://localhost:8085');
 				$getLastId = $row['id']+1;
 
 				$sourcePath = $_FILES['file']['tmp_name']; // Storing source path of the file in a variable
-				$targetPath = "design-camp-images/".$_REQUEST['user_id']."_".$getLastId."_".$_FILES['file']['name']; // Target path where file is to be stored
+				$targetPath = "design-camp-img/".$_REQUEST['user_id']."_".$getLastId."_".$_FILES['file']['name']; // Target path where file is to be stored
 				move_uploaded_file($sourcePath,$targetPath) ; // Moving Uploaded file
 				
 				

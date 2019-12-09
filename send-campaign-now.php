@@ -28,14 +28,12 @@
 		$res = mysql_fetch_array($sql);
 		$campaignID = $res['id']+1;
 
-
 		define('UPLOAD_DIR', 'images/');
 
 		$format = explode('base64',$img);
 		$format = $format[0];
 		$extention = explode('data:image/',$format);
 		$extention = explode(';',$extention[1]);
-
 
 		if($format == 'data:image/jpeg;'){
 			$getBaseFormat = str_replace('data:image/jpeg;base64,', '', $img);
@@ -53,7 +51,6 @@
 			//echo "Image format is not correct!";
 		}
 
-
 		if($getBaseFormat){
 			$img = str_replace(' ', '+', $getBaseFormat);
 			$data = base64_decode($img);
@@ -62,36 +59,26 @@
 			$msg = $success ? 1 : 0;
 		}
 
-		
-		// $img = str_replace('data:image/png;base64,', '', $img);
-		// $img = str_replace(' ', '+', $img);
-		// $data = base64_decode($img);
-		// $file = UPLOAD_DIR . $campaignID."_".$userID . '.png';
-		// $success = file_put_contents($file, $data);
-		// $msg = $success ? 1 : 0;
 
-		//<img src='http://localhost/react-website-php/images'".$file."'>
-
-		//print_r($a);
-		//echo "select * from contacts where list_id in (".implode(',',$a).")";
 		$allEmails = array();
 		$sql = mysql_query("select * from contacts where list_id in (".implode(',',$a).")");
 
+		
 		if(!$file){
 			$sendingImg = $img;
 		}else{
 			$sendingImg = $file;
 		}
 		
-			//echo "insert into campaigns (`campaign_name`,`campaign_data`,`user_id`,`list_id`,`campaign_type`) values('".$campaignName."','".$sendingImg."',".$userID.",'".implode(',',$a)."',0)";
-		$campSql = mysql_query("insert into campaigns (`campaign_name`,`campaign_data`,`user_id`,`list_id`,`campaign_type`,`campaign_text`,`campaign_date`) values('".$campaignName."','".$sendingImg."',".$userID.",'".implode(',',$a)."',0,'".$campaignText."',".STR_TO_DATE(date('Y-m-d'),'DD-MM-YYYY')")");
-		
+		$campSql = mysql_query("insert into campaigns (`campaign_name`,`campaign_data`,`user_id`,`list_id`,`campaign_type`,`campaign_text`,`campaign_date`) values('".$campaignName."','".$sendingImg."',".$userID.",'".implode(',',$a)."',0,'".$campaignText."',".date('DD-MM-YYYY').")");
 		$insertId = mysql_insert_id();
+
 
 		while($row = mysql_fetch_array($sql)){
 			$allEmails[] = $row['email'];
 		}
-		//print_r($allEmails);
+
+		// print_r($allEmails);
 		
 		$receive_email = implode(',',$allEmails);
 		$subject = $campaignName;
@@ -122,7 +109,7 @@
 			$sql = mysql_query("delete from campaigns where id=".$insertId."");
 			$emailSentMsg = 0;
 		}
-		header('Access-Control-Allow-Origin: http://localhost:8085');
+		// header('Access-Control-Allow-Origin: http://localhost:8085');
 
 		echo json_encode($emailSentMsg);	
 ?>

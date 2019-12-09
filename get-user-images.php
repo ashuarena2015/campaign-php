@@ -13,7 +13,7 @@
 			$data[] = array("image" => $image,);
 		}
 		
-		header('Access-Control-Allow-Origin: http://localhost:8085');
+		// header('Access-Control-Allow-Origin: http://localhost:8085');
 
 		//echo json_encode($data);
 

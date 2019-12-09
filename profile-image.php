@@ -44,7 +44,7 @@
 			mysql_query("UPDATE users set profile_img='".$file."' where id='".$userID."'");
 		}
 
-		header('Access-Control-Allow-Origin: http://localhost:8085');
+		// header('Access-Control-Allow-Origin: http://localhost:8085');
 
 		echo json_encode($msg);
 
